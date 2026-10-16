@@ -148,6 +148,17 @@ h2 { font: 700 clamp(1.7rem, 3.6vw, 2.3rem)/1.15 var(--font-display); letter-spa
 .more[aria-expanded="true"]::before { content: "− "; }
 .card .why { font-size: 14px; color: var(--muted); margin: 0; }
 
+/* Experience */
+.role { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 10px 40px; padding-block: 30px; border-top: 1px solid var(--line); }
+.role:first-of-type { border-top: 0; padding-top: 0; }
+.role-meta h3 { font: 700 1.15rem/1.3 var(--font-display); margin-bottom: 6px; }
+.role-meta p { font: 400 12px/1.7 var(--font-mono); color: var(--muted); }
+.role-meta .title { color: var(--cyan); }
+.role ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.role li { position: relative; padding-left: 20px; color: var(--muted); max-width: 72ch; }
+.role li::before { content: ">"; position: absolute; left: 0; top: 0; font: 500 13px/1.8 var(--font-mono); color: var(--emerald); }
+.role li strong { color: var(--fg); font-weight: 600; }
+
 /* Projects */
 .project { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 28px; display: grid; gap: 22px; min-width: 0; }
 .project + .project { margin-top: 28px; }
@@ -222,6 +233,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .flow .node:not(:last-child)::after { content: "↓"; right: auto; left: 18px; top: auto; bottom: -24px; transform: none; }
 }
 @media (max-width: 860px) {
+  .role { grid-template-columns: minmax(0, 1fr); gap: 14px; }
   .hero { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-block: 48px 56px; }
   .contact { grid-template-columns: minmax(0, 1fr); gap: 36px; }
   .sec { padding-block: 52px; }
@@ -239,6 +251,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <a class="brand" href="#top">kalyan<span>.</span>dev</a>
     <nav class="nav" aria-label="Sections">
       <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#playground">Code</a>
       <a href="#contact">Contact</a>
@@ -257,10 +270,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <p class="focus">Designing scalable event-driven systems, cloud integrations, and robust C# / .NET microservices.</p>
         <div class="actions">
           <a class="btn btn-primary" href="#projects">View Systems Architecture</a>
-          <button class="btn btn-emerald" id="resume" type="button" hidden>Download Resume</button>
+          <a class="btn btn-emerald" href="Kalyan_B_Resume.pdf" download>Download Resume</a>
           <a class="btn btn-ghost" href="#contact">Get in Touch</a>
         </div>
-        <p class="note" id="resume-note" role="status" aria-live="polite"></p>
       </div>
 
       <div class="codecard" aria-label="Summary written as C# code">
@@ -316,6 +328,43 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <button class="more" type="button" aria-expanded="false" aria-controls="why-data">How I use it</button>
           <p class="why" id="why-data" hidden>SQL Server schemas are shaped by how the data is read and written, and distributed caching takes repeat reads off the database.</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="experience">
+    <div class="wrap">
+      <p class="eyebrow">// experience</p>
+      <h2>Where I have shipped</h2>
+      <p class="sec-lede">Production systems on Azure, from event streams and change-data-capture to EDI and ERP integration.</p>
+
+      <div class="role">
+        <div class="role-meta">
+          <h3>Taylor Farms</h3>
+          <p class="title">Software Engineer</p>
+          <p>Aug 2024 to present<br>Bellevue, WA</p>
+        </div>
+        <ul>
+          <li>Architected and led an event-driven email automation system in C# and .NET Core that replaced manual entry for a 40-person team, <strong>cutting processing time by 90% and operational costs by 30%</strong>.</li>
+          <li>Built a multi-tenant change-data-capture Worker Service on .NET 10 that replicates row-level Dynamics 365 F&amp;O / Business Central changes into Azure SQL across about 100 ERP tables.</li>
+          <li>Designed a Redis-backed CDC engine that computes row-level deltas with chunked hash writes, so only modified rows emit Event Hub events.</li>
+          <li>Developed an EDI abstraction layer of about 33K lines of code that brokers EDI 850, 820 and 894 documents with the central ERP.</li>
+          <li>Architected a .NET 10 integration platform that co-hosts an ASP.NET Core API and feature-flagged BackgroundService workers in one container, using Azure Blob lease leader election.</li>
+          <li>Built a 30+ screen React 18 operations console with MSAL auth, secured with Key Vault and Managed Identity.</li>
+        </ul>
+      </div>
+
+      <div class="role">
+        <div class="role-meta">
+          <h3>C2S Technologies</h3>
+          <p class="title">Software Engineer</p>
+          <p>Jul 2022 to Jun 2023<br>Hyderabad, India</p>
+        </div>
+        <ul>
+          <li>Designed and developed REST microservices with Spring Boot and Java, <strong>improving deployment times by 50%</strong>.</li>
+          <li>Migrated infrastructure from RedHat OpenShift to Azure Kubernetes Service (AKS).</li>
+          <li>Automated CI/CD pipelines with Jenkins and added monitoring through Splunk, New Relic and SignalFx for faster issue resolution.</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -388,10 +437,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div>
         <p class="eyebrow">// contact</p>
         <h2>Let's talk</h2>
-        <p>Hiring for a backend role, or have an integration problem that needs another engineer? Send a note, or find me on GitHub and LinkedIn.</p>
+        <p>Hiring for a backend role, or have an integration problem that needs another engineer? Send a note, or find me on GitHub, LinkedIn and X.</p>
         <div class="social" id="social">
           <a id="gh" href="#" target="_blank" rel="noopener" aria-label="GitHub profile" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></a>
           <a id="li" href="#" target="_blank" rel="noopener" aria-label="LinkedIn profile" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+          <a id="xx" href="#" target="_blank" rel="noopener" aria-label="X profile" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
         </div>
       </div>
 
@@ -424,7 +474,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
   /* ---- Set these to show the icons in the contact section ---- */
-  var LINKS = { github: 'https://github.com/kalyan-chakravarthi-dev', linkedin: '' };
+  var LINKS = { github: 'https://github.com/kalyan-chakravarthi-dev', linkedin: 'https://www.linkedin.com/in/kalyan-bkc', x: 'https://x.com/kalyanbonddev' };
 
   /* ---- Theme (dark by default) ---- */
   var root = document.documentElement;
@@ -752,59 +802,7 @@ public sealed class Checkout
   /* ---- Social links ---- */
   if (/^https:\/\//.test(LINKS.github)) { $('#gh').href = LINKS.github; $('#gh').hidden = false; }
   if (/^https:\/\//.test(LINKS.linkedin)) { $('#li').href = LINKS.linkedin; $('#li').hidden = false; }
-
-  /* ---- Resume download (offered only where the viewer allows downloads) ---- */
-  function buildResume() {
-    var lines = [
-      '# Kalyan B',
-      'Backend Software Engineer | .NET Specialist',
-      'Bellevue, WA',
-      '',
-      '## Summary',
-      '3 years of production experience designing scalable event-driven systems, cloud integrations and C# / .NET microservices.',
-      '',
-      '## Experience',
-      '**Software Engineer, C2S Technologies**',
-      '- Build event-driven microservices and Azure integrations for enterprise supply-chain clients.',
-      '- Work on EDI, D365 and Databricks data pipelines, plus monitoring with Grafana and KQL.',
-      '',
-      '## Technical skills',
-      '- Languages and runtimes: C# (.NET 8/9), Python, C++',
-      '- Architecture and patterns: Event-Driven Architecture, Microservices, LLD, OOD, REST APIs',
-      '- Cloud and infrastructure: Azure Container Apps, Event Hubs, Blob Storage / ADLS, Key Vault, On-Premises Gateways, Distributed Lock Management',
-      '- Databases and storage: SQL Server, Relational Modeling, Distributed Caching',
-      '',
-      '## Featured projects',
-      '**Event-Driven Hybrid Cloud Integration Gateway**',
-      '- Hybrid architecture that moves events from on-premises UNC shares through custom polling workers into Azure Event Hubs.',
-      '- Polly resilience policies and distributed blob lease gates.',
-      '- C#, .NET, Azure Event Hubs, Azure Container Apps, Blob Storage, SQL Server.',
-      '',
-      '**Low-Level Design & Algorithmic Mechanics**',
-      '- Data structure and algorithm implementations covering dynamic programming, prefix sums and C# class relationships.',
-      '',
-      '## Education',
-      '- Master\'s in Computer Science, University of Central Missouri',
-      '- B.Tech in Electronics and Communication Engineering, JNTUH',
-      ''
-    ];
-    return lines.join('\n');
-  }
-  (function () {
-    var c = window.claude;
-    if (!c || !c.use) return;
-    c.use('downloads').then(function (d) {
-      if (!d) return;
-      var btn = $('#resume'), note = $('#resume-note');
-      btn.hidden = false;
-      btn.addEventListener('click', function () {
-        d.save({ filename: 'Kalyan_B_Resume.md', data: buildResume() }).then(
-          function () { note.textContent = 'Resume saved.'; },
-          function (err) { note.textContent = err && err.code === 'declined' ? '' : 'The resume could not be saved here.'; }
-        );
-      });
-    }, function () {});
-  })();
+  if (/^https:\/\//.test(LINKS.x)) { $('#xx').href = LINKS.x; $('#xx').hidden = false; }
 })();
 </script>
 </body>
